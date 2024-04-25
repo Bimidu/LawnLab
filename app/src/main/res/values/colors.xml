@@ -10,6 +10,11 @@
     <color name="grass_green5">#55C233</color>
     <color name="grass_green6">#37AE0F</color>
 
+    <color name="lawn_grass">#048E2B</color>
+    <color name="mowed_lawn_grass">#4c8d1d</color>
+
+    <color name="gold">#FFE600</color>
+
     <color name="dark_grey">#0A0908</color>
     <color name="light_grey">#D9D9D9</color>
     <color name="medium_grey">#858585</color>

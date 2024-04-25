@@ -84,6 +84,7 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:scaleType="fitStart"
+                    android:visibility="invisible"
                     app:srcCompat="@drawable/mowerside6" />
 
                 <ImageView
@@ -91,6 +92,7 @@
                     android:layout_width="100sp"
                     android:layout_height="0dp"
                     android:layout_weight="1"
+                    android:visibility="invisible"
                     app:srcCompat="@drawable/mowerside3" />
 
                 <ImageView
@@ -98,6 +100,7 @@
                     android:layout_width="100sp"
                     android:layout_height="0dp"
                     android:layout_weight="1"
+                    android:visibility="invisible"
                     app:srcCompat="@drawable/mowerside5" />
 
                 <ImageView
@@ -105,6 +108,7 @@
                     android:layout_width="100sp"
                     android:layout_height="0dp"
                     android:layout_weight="1"
+                    android:visibility="invisible"
                     app:srcCompat="@drawable/mowerside7" />
 
                 <ImageView
@@ -112,6 +116,7 @@
                     android:layout_width="100sp"
                     android:layout_height="0dp"
                     android:layout_weight="1"
+                    android:visibility="invisible"
                     app:srcCompat="@drawable/mowerside8" />
 
                 <ImageView
@@ -119,6 +124,7 @@
                     android:layout_width="100sp"
                     android:layout_height="0dp"
                     android:layout_weight="1"
+                    android:visibility="invisible"
                     app:srcCompat="@drawable/mowerside2" />
             </LinearLayout>
 
@@ -156,11 +162,12 @@
                 android:textSize="72sp" />
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/start_game"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@android:color/transparent"
                 android:fontFamily="@font/circularstd_bold"
+                android:onClick="startGame"
                 android:text="@string/start_game"
                 android:textColor="@color/white"
                 android:textSize="36sp"
