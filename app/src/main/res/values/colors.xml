@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="black">#FF000000</color>
+    <color name="dpad_background">#26000000</color>
     <color name="white">#FFFFFF</color>
 
     <color name="grass_green1">#5FC314</color>
@@ -12,6 +13,7 @@
 
     <color name="lawn_grass">#048E2B</color>
     <color name="mowed_lawn_grass">#4c8d1d</color>
+    <color name="lawn_obstacle">#646464</color>
 
     <color name="gold">#FFE600</color>
 

@@ -21,20 +21,40 @@
             android:id="@+id/mower"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center_horizontal"
+            android:layout_gravity="start|top"
             app:srcCompat="@drawable/mowertop" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/score"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="top|end"
             android:layout_marginTop="25dp"
             android:layout_marginEnd="25dp"
             android:fontFamily="@font/circularstd_bold"
-            android:text="234"
-            android:textColor="@color/gold"
+            android:text="Score : 0"
+            android:textColor="@color/white"
             android:textSize="34sp" />
+
+        <Button
+            android:id="@+id/menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|top"
+            android:layout_margin="15dp"
+            android:backgroundTint="@android:color/transparent"
+            android:fontFamily="@font/circularstd_bold"
+            android:gravity="center_horizontal|center_vertical"
+            android:padding="0dp"
+            android:text="| | |"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:strokeColor="@color/white"
+            app:strokeWidth="2sp" />
+
+        <include
+            layout="@layout/dpad_layout"
+            android:layout_gravity="top|end" />
 
     </FrameLayout>
 
