@@ -1,10 +1,12 @@
 package com.example.madlabexam03
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.View
@@ -13,38 +15,49 @@ import android.view.WindowInsets
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.gridlayout.widget.GridLayout
 import kotlin.math.atan2
 import kotlin.random.Random
 
-
+// Define the GameActivity class which extends AppCompatActivity
 class GameActivity : AppCompatActivity() {
-    private val NUM_COLUMNS = 20 // Number of columns in the grid
+    // Number of columns in the grid
+    private val NUM_COLUMNS = 20
+    // Number of rows in the grid
     private val NUM_ROWS = 9
-    private val TILE_MARGIN_DP = 0.5 // Margin between tiles in dp
-    private lateinit var mowerImageView: ImageView // Reference to the mower ImageView
-
+    // Margin between tiles in dp
+    private val TILE_MARGIN_DP = 0.5
+    // Reference to the mower ImageView
+    private lateinit var mowerImageView: ImageView
+    // Reference to the GridLayout
     private lateinit var gridLayout: GridLayout
-
-
-
+    // Map to store whether each tile is a rock or not
     private val isRockTile = mutableMapOf<Int, Boolean>()
+    // Set to store indices of mowed tiles
     private val mowedTiles = mutableSetOf<Int>()
-
+    // Current score
     private var score = 0
+    // TextView to display the score
     private lateinit var scoreTextView: TextView
-
+    // Current column of the mower
     private var currentColumn = 0
+    // Current row of the mower
     private var currentRow = 0
-
-    // Declare SharedPreferences and high score key
+    // SharedPreferences instance
     private lateinit var sharedPreferences: SharedPreferences
+    // Key to store high score in SharedPreferences
     private val HIGH_SCORE_KEY = "high_score"
 
+    private lateinit var progressBar: ProgressBar
 
+    private var timer: CountDownTimer? = null
+
+    // Called when the activity is starting
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
@@ -59,7 +72,6 @@ class GameActivity : AppCompatActivity() {
 
         // Initialize SharedPreferences
         sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
-
 
         // Find DPad buttons by their IDs
         val btnUpLeft = findViewById<Button>(R.id.btn_up_left)
@@ -90,6 +102,14 @@ class GameActivity : AppCompatActivity() {
         // Set initial position of the mower to top-left corner
         currentColumn = 0
         currentRow = 0
+
+        // Find and initialize the ProgressBar
+        progressBar = findViewById(R.id.progressBar)
+
+        // Set initial progress to full
+        progressBar.max = 200
+        progressBar.progress = 200
+
 
         // Move the mower to the top-left corner
         moveMowerToColumnRow(0, 0)
@@ -182,6 +202,7 @@ class GameActivity : AppCompatActivity() {
         val adjustedX = newX - mowerHalfWidth
         val adjustedY = newY - mowerHalfHeight
 
+
         // Use ViewPropertyAnimator to animate the position
         mowerImageView.animate()
             .x(adjustedX.toFloat())
@@ -211,6 +232,8 @@ class GameActivity : AppCompatActivity() {
                 currentColumn = column
                 currentRow = row
 
+
+
                 // Calculate the new high score
                 val highScore = sharedPreferences.getInt(HIGH_SCORE_KEY, 0)
                 val newHighScore = if (score > highScore) score else highScore
@@ -229,18 +252,49 @@ class GameActivity : AppCompatActivity() {
 
     }
 
+    private fun startCountdown() {
+        // Start the timer for 2 seconds
+        timer = object : CountDownTimer(2000, 1) {
+            override fun onTick(millisUntilFinished: Long) {
+                // Update the timer UI
+                val progress = (millisUntilFinished / 10).toInt()
+                progressBar.progress = progress
+            }
+
+            override fun onFinish() {
+                // Timer finished, call backtomenu with "Game Over" message
+                backToMenuWithMessage("Game Over - Time's up!")
+            }
+        }.start()
+    }
+
+    private fun backToMenuWithMessage(message: String) {
+        // Show a toast message with the provided message
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+
+        // Navigate back to the main menu
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+    }
+
 
     private fun updateHighScore() {
-        // Calculate the new high score
+        // Retrieve the stored high score from SharedPreferences
         val highScore = sharedPreferences.getInt(HIGH_SCORE_KEY, 0)
-        val newHighScore = if (score > highScore) score else highScore
 
-        // Update high score in SharedPreferences
-        with(sharedPreferences.edit()) {
-            putInt(HIGH_SCORE_KEY, newHighScore)
-            apply()
+        // Check if the current score is higher than the stored high score
+        if (score > highScore) {
+            // Update the high score in SharedPreferences
+            with(sharedPreferences.edit()) {
+                putInt(HIGH_SCORE_KEY, score)
+                apply()
+            }
+
+            // Show a toast message indicating the new high score
+            Toast.makeText(this, "New Highscore !!!", Toast.LENGTH_SHORT).show()
         }
     }
+
 
 
     private fun generateRandomColor(tileIndex: Int): Pair<Int, Boolean> {
@@ -267,6 +321,16 @@ class GameActivity : AppCompatActivity() {
     }
 
     private fun moveMowerToDirection(horizontal: Int, vertical: Int) {
+        // Reset the progress bar
+        progressBar.progress = progressBar.max
+
+        // Cancel the previous timer if it exists
+        timer?.cancel()
+
+        // Start the countdown timer
+        startCountdown()
+
+
         // Calculate the new column and row based on the current position and direction
         val newColumn = currentColumn + horizontal
         val newRow = currentRow + vertical
@@ -285,7 +349,10 @@ class GameActivity : AppCompatActivity() {
         }
     }
 
-
+    fun backtomenu(view: View) {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+    }
 
     /*private fun moveMowerToPosition(column: Int, row: Int) {
             // Calculate the difference between the current and destination positions

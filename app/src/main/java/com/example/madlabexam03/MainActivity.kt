@@ -3,6 +3,7 @@ package com.example.madlabexam03
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +12,7 @@ import android.view.View
 import android.view.WindowInsets
 import android.view.animation.LinearInterpolator
 import android.widget.ImageView
+import android.widget.TextView
 import kotlin.random.Random
 
 
@@ -37,6 +39,13 @@ class MainActivity : AppCompatActivity() {
         animateImage(R.id.sidemowerimg4)
         animateImage(R.id.sidemowerimg5)
         animateImage(R.id.sidemowerimg6)
+
+
+        // Display stored high score
+        val sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        val highScore = sharedPreferences.getInt("high_score", 0)
+        val highScoreDisplay = findViewById<TextView>(R.id.highscore_display)
+        highScoreDisplay.text = "High Score: $highScore"
 
     }
 
