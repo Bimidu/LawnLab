@@ -11,9 +11,9 @@
     <color name="grass_green5">#55C233</color>
     <color name="grass_green6">#37AE0F</color>
 
-    <color name="lawn_grass">#048E2B</color>
-    <color name="mowed_lawn_grass">#4c8d1d</color>
-    <color name="lawn_obstacle">#646464</color>
+    <color name="lawn_grass">#5FC314</color>
+    <color name="mowed_lawn_grass">#C1F376</color>
+    <color name="lawn_obstacle">#564A4A</color>
 
     <color name="gold">#FFE600</color>
 

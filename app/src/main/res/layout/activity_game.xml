@@ -25,16 +25,28 @@
             app:srcCompat="@drawable/mowertop" />
 
         <TextView
+            android:id="@+id/highscore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|end"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="25dp"
+            android:fontFamily="@font/circularstd"
+            android:text="@string/initial_highscore"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <TextView
             android:id="@+id/score"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="top|end"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="30dp"
             android:layout_marginEnd="25dp"
             android:fontFamily="@font/circularstd_bold"
-            android:text="Score : 0"
+            android:text="@string/initial_score"
             android:textColor="@color/white"
-            android:textSize="34sp" />
+            android:textSize="24sp" />
 
         <Button
             android:id="@+id/menu"
