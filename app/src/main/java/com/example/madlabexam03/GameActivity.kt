@@ -221,7 +221,7 @@ class GameActivity : AppCompatActivity() {
                         tileView?.setOnClickListener(null) // Disable click listener for this tile
                 } else {
                     // Decrement the score by 10 when moving onto a green 4 tile
-                    score -= 10
+                    score -= 20
                     scoreTextView.text = "Score: $score"
                 }
 
@@ -310,7 +310,7 @@ class GameActivity : AppCompatActivity() {
         // Randomly choose between grass, second green, and rock colors based on a condition
         val randomValue = Random.nextFloat()
         return when {
-            randomValue < 0.93f -> Pair(ContextCompat.getColor(this, R.color.grass_green1), false) // Primary grass color
+            randomValue < 0.9f -> Pair(ContextCompat.getColor(this, R.color.grass_green1), false) // Primary grass color
             else -> Pair(ContextCompat.getColor(this, R.color.lawn_obstacle), true) // Rock color
         }
     }
