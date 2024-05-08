@@ -52,10 +52,12 @@ class GameActivity : AppCompatActivity() {
     private lateinit var sharedPreferences: SharedPreferences
     // Key to store high score in SharedPreferences
     private val HIGH_SCORE_KEY = "high_score"
-
+    //progress bar to show the time out
     private lateinit var progressBar: ProgressBar
 
     private var timer: CountDownTimer? = null
+
+    private var isNewHighScoreToastShown = false
 
     // Called when the activity is starting
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -232,8 +234,6 @@ class GameActivity : AppCompatActivity() {
                 currentColumn = column
                 currentRow = row
 
-
-
                 // Calculate the new high score
                 val highScore = sharedPreferences.getInt(HIGH_SCORE_KEY, 0)
                 val newHighScore = if (score > highScore) score else highScore
@@ -251,6 +251,7 @@ class GameActivity : AppCompatActivity() {
 
 
     }
+
 
     private fun startCountdown() {
         // Start the timer for 2 seconds
@@ -294,6 +295,7 @@ class GameActivity : AppCompatActivity() {
             Toast.makeText(this, "New Highscore !!!", Toast.LENGTH_SHORT).show()
         }
     }
+
 
 
 
